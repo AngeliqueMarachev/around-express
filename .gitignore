@@ -12,4 +12,8 @@ node_modules
 # System files and IDE settings folders
 .DS_Store
 .idea
+<<<<<<< HEAD
 .vscode
+=======
+.vscode 
+>>>>>>> 81e9666af08bf7577a5b36c0ae0322a288272fba

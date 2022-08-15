@@ -1,6 +1,7 @@
 {
   "name": "around-express",
   "version": "1.0.0",
+<<<<<<< HEAD
   "description": "Project 12",
   "main": "app.js",
   "scripts": {
@@ -8,6 +9,14 @@
     "lint": "npx eslint .",
     "start": "node app.js",
     "dev": "nodemon app.js"
+=======
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "lint": "npx eslint ."
+>>>>>>> 81e9666af08bf7577a5b36c0ae0322a288272fba
   },
   "repository": {
     "type": "git",
@@ -20,6 +29,7 @@
   },
   "homepage": "https://github.com/AngeliqueMarachev/around-express#readme",
   "devDependencies": {
+<<<<<<< HEAD
     "eslint": "^8.22.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-plugin-import": "^2.26.0",
@@ -27,5 +37,17 @@
   },
   "dependencies": {
     "express": "^4.18.1"
+=======
+    "nodemon": "^2.0.19",
+    "eslint": "^8.22.0"
+  },
+  "dependencies": {
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "express": "^4.18.1",
+    "init": "^0.1.2",
+    "npm": "^8.17.0",
+    "save-dev": "^0.0.1-security"
+>>>>>>> 81e9666af08bf7577a5b36c0ae0322a288272fba
   }
 }
