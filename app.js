@@ -1,4 +1,5 @@
 const express = require('express');
+
 const app = express();
 const { PORT = 3000 } = process.env;
 
@@ -10,9 +11,8 @@ app.use(cardRouter);
 
 app.use((req, res) => {
   res.status(404)
-    .send({ message: "Requested resource not found" });
+    .send({ message: 'Requested resource not found' });
 });
-
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
