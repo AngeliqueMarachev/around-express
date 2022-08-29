@@ -5,13 +5,13 @@ const { PORT = 3000 } = process.env;
 
 const userRouter = require('./routes/users');
 const cardRouter = require('./routes/cards');
+const { pageError } = require('./utils/constants');
 
 app.use(userRouter);
 app.use(cardRouter);
 
 app.use((req, res) => {
-  res.status(404)
-    .send({ message: 'Requested resource not found' });
+  pageError(res);
 });
 
 app.listen(PORT, () => {

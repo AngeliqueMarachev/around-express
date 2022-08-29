@@ -9,7 +9,7 @@ An introduction to working with Node.js & Express, this project focussed on back
 - Postman
 
 ### Technquies
-- Buld an API sever using Node.js and Express.js.
+- Built an API sever using Node.js and Express.js.
 - Routing to send or recieve data.
 - Use of fs to read data.
 
