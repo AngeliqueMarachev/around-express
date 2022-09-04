@@ -25,13 +25,9 @@ router.get('/users/:id', (req, res) => {
       if (user) {
         res.send(user);
       } else {
-        // res.status(404).send({ message: 'User ID not found' });
         userError(res);
       }
     })
-    // .catch(() => {
-    //   res.status(500).send({ message: 'We have encountered an error' });
-    // });
     .catch(() => serverError(res));
 });
 
