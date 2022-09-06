@@ -1,34 +1,45 @@
 const router = require('express').Router();
-const fs = require('fs').promises;
 
-const path = require('path');
+const {
+  getUsers,
+  getUser,
+  createUser,
+} = require('../controllers/users');
 
-const DATA_PATH = path.join(__dirname, '../data/users.json');
+router.get('/users', getUsers);
+router.get('/users/;userId', getUser);
+router.post('/users', createUser);
 
-const { serverError, userError } = require('../utils/constants');
+// const fs = require('fs').promises;
 
-router.get('/users', (req, res) => {
-  fs.readFile(DATA_PATH, { encoding: 'utf-8' })
-    .then((data) => {
-      const userData = JSON.parse(data);
-      res.send(userData);
-    })
-    .catch(() => serverError(res));
-});
+// const path = require('path');
 
-router.get('/users/:id', (req, res) => {
-  fs.readFile(DATA_PATH, { encoding: 'utf-8' })
-    .then((data) => {
-      const { id } = req.params;
-      const user = JSON.parse(data).find((u) => u._id === id);
+// const DATA_PATH = path.join(__dirname, '../data/users.json');
 
-      if (user) {
-        res.send(user);
-      } else {
-        userError(res);
-      }
-    })
-    .catch(() => serverError(res));
-});
+// const { serverError, userError } = require('../utils/constants');
+
+// router.get('/users', (req, res) => {
+//   fs.readFile(DATA_PATH, { encoding: 'utf-8' })
+//     .then((data) => {
+//       const userData = JSON.parse(data);
+//       res.send(userData);
+//     })
+//     .catch(() => serverError(res));
+// });
+
+// router.get('/users/:id', (req, res) => {
+//   fs.readFile(DATA_PATH, { encoding: 'utf-8' })
+//     .then((data) => {
+//       const { id } = req.params;
+//       const user = JSON.parse(data).find((u) => u._id === id);
+
+//       if (user) {
+//         res.send(user);
+//       } else {
+//         userError(res);
+//       }
+//     })
+//     .catch(() => serverError(res));
+// });
 
 module.exports = router;
