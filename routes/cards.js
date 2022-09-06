@@ -10,8 +10,6 @@ router.get('/cards', getCards);
 router.post('/cards', createCard);
 router.delete('/cards/:cardId', deleteCard);
 
-
-
 // const fs = require('fs').promises;
 // const path = require('path');
 

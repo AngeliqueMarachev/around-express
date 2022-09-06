@@ -8,8 +8,8 @@ const getUsers = (req, res) => {
 };
 
 const getUser = (req, res) => {
-  const { userId } = req.params;
-  User.findById(userId); // findById gives one user
+  const { id } = req.params;
+  User.findById(id); // findById gives one user
   orFail(() => {
     const error = new Error("User not found");
     error.status = 404;
