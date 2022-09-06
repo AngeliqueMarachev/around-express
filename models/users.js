@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
 
+const URL_REGEX = require('../utils/constants');
+
 const userSchema = new mongoose.Schema({
-  username: {
+  name: {
     type: String,
     minlength: 2,
     maxlength: 30,
@@ -17,10 +19,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator(v) {
-        return /https?:\/\/.*/gi.test(v);
+      validator(value) {
+        return URL_REGEX.test(value); // will return true or false
       },
-      message: 'invalid URL',
+      message: 'Invalid URL',
     },
   },
 })
