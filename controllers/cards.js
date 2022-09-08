@@ -52,8 +52,41 @@ const deleteCard = (req, res) => {
       });
 };
 
+const updateLikes = (req, res, operator) => {
+  const cardId = req.params.cardId
+  const userId = req.user._id
+
+  Card.findByIdAndUpdate(
+    cardId, // searches for the card on the database
+    { [operator]: { likes: userId } }, // $pull / $addToSet
+    { new: true },
+  )
+    .orFail(() => {
+      const error = new Error('Card is not found')
+      error.status = 404
+
+      throw error
+    })
+    .then(card => res.send({ data: card }))
+    .catch(err => {
+      if (err.name === 'CastError') {
+        res.status(400).send({ message: 'Card id is incorrect' })
+      } else if (err.status === 404) {
+        res.status(404).send({ message: 'Invalid user id' })
+      } else {
+        res.status(500).send({ message: 'Something went wrong' })
+      }
+    })
+};
+
+const likeCard = (req, res) => updateLikes(req, res, $addToSet);
+
+const dislikeCard = (req, res) => updateLikes(req, res, $pull);
+
 module.exports = {
   getCards,
   createCard,
   deleteCard,
+  likeCard,
+  dislikeCard,
 };

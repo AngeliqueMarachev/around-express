@@ -13,9 +13,6 @@ const { pageError } = require("./utils/constants");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use(userRouter);
-app.use(cardRouter);
-
 app.use((req, res, next) => {
   req.user = {
     _id: '5d8b8592978f8bd833ca8133'
@@ -23,6 +20,9 @@ app.use((req, res, next) => {
 
   next();
 });
+
+app.use(userRouter);
+app.use(cardRouter);
 
 app.use((req, res) => {
   pageError(res);
