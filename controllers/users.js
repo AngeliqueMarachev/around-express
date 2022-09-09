@@ -8,8 +8,8 @@ const getUsers = (req, res) => {
 };
 
 const getUser = (req, res) => {
-  const { userId } = req.params;
-  User.findById(userId) // findById gives one user
+  const { userId } = req.params
+  User.findById(userId)
   .orFail(() => {
     const error = new Error("User not found");
     error.status = 404;
@@ -17,7 +17,7 @@ const getUser = (req, res) => {
   })
     .then((user) => res.status(200).send({ data: user }))
     .catch((err) => {
-      if (err.name === "CastError") {
+      if (err.status === "CastError") {
         res.status(400).send("Invalid user");
       } else if (err.type === 404) {
         res.status(404).send({ message: err.message });
@@ -45,57 +45,57 @@ const createUser = (req, res) => {
 };
 
 const updateUserData = (req, res) => {
-  const id = req.user._id
-  const body = req.body
+  const id = req.user._id;
+  const body = req.body;
   User.findByIdAndUpdate(id, { body }, { new: true })
-  .orFail(() => {
-    const error = new Error('Invalid user id')
+    .orFail(() => {
+      const error = new Error("Invalid user id");
 
-    //   new Error constructor in JS, creates an object { message } ('Invalid user id):
-    //   class Error {
-    //   constructor(message) {
-    //     this.message = message
-    //   }
-    // }
+      //   new Error constructor in JS, creates an object { message } ('Invalid user id):
+      //   class Error {
+      //   constructor(message) {
+      //     this.message = message
+      //   }
+      // }
 
-    error.status = 404
+      error.status = 404;
 
-    throw error
-  })
-  .then(user => res.send({ data: user}))
-  .catch(err => {
-    if (err.name === 'CastError') {
-    res.status(400).send({ message: 'User id is incorrect'})
-    } else if (err.status === 404) {
-      res.status(404).send({ message: 'Invalid user id'})
-    } else {
-      res.status(500).send({message: 'Something went wrong'})
-  }
-})
-}
-
-const updateAvatar = (req, res) => {
-  const { avatar } = req.body
-
-  if (!avatar) {
-    return res.status(400).send({message: 'Please update avatar'})
-  }
-  updateUserData(res, req)
-}
+      throw error;
+    })
+    .then((user) => res.send({ data: user }))
+    .catch((err) => {
+      if (err.name === "CastError") {
+        res.status(400).send({ message: "User id is incorrect" });
+      } else if (err.status === 404) {
+        res.status(404).send({ message: "Invalid user id" });
+      } else {
+        res.status(500).send({ message: "Something went wrong" });
+      }
+    });
+};
 
 const updateUser = (req, res) => {
-  const { name, about } = req.body
+  const { name, about } = req.body;
 
   if (!name || !about) {
-    return res.status(400).send({message: 'Please update these fields'})
+    return res.status(400).send({ message: "Please update these fields" });
   }
-  updateUserData(res, req)
-}
+  updateUserData(res, req);
+};
+
+const updateAvatar = (req, res) => {
+  const { avatar } = req.body;
+
+  if (!avatar) {
+    return res.status(400).send({ message: "Please update avatar" });
+  }
+  updateUserData(res, req);
+};
 
 module.exports = {
   getUsers,
   getUser,
   createUser,
-  updateAvatar,
   updateUser,
+  updateAvatar,
 };
