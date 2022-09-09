@@ -1,15 +1,17 @@
-# Project 12: Around The U.S. - back end
+# Project 13: Around The U.S. - back end
 
 ### Overview
-An introduction to working with Node.js & Express, this project focussed on back-end data management.
+An introduction to REST API.
 
 ### Technologies
 - Node.js
 - Express.js
 - Postman
+- MongoDB
+- Mongoose
 
 ### Technquies
-- Built an API sever using Node.js and Express.js.
+- Built a RESTful API sever using MondgoDB and Mongoose.
 - Routing to send or recieve data.
 - Use of fs to read data.
 
@@ -18,5 +20,5 @@ An introduction to working with Node.js & Express, this project focussed on back
 
 ## Plan on improving the project
 
-This project will be linked to the front-end in the following sprint.
+This project will be linked to the front-end in a future sprint.
 

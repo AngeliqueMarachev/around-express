@@ -16,7 +16,7 @@ const createCard = (req, res) => {
   Card.create({ name, link, likes, owner })
     .then((card) => res.status(201).send({ data: card }))
     .catch((err) => {
-      if (err.name === "ValidationError") {
+      if (err.name === "ValidationError") { // if other data is not correct
         res.status(400).send({
           message: `${Object.values(err.errors)
             .map((error) => error.message)
@@ -30,11 +30,11 @@ const createCard = (req, res) => {
 
 // DELETE
 const deleteCard = (req, res) => {
-  const { cardId } = req.user._id;
+  const { cardId } = req.params;
 
   Card.findByIdAndRemove(cardId)
     .orFail(() => {
-      const error = new Error('User not found')
+      const error = new Error('Card not found')
       error.status = 404
 
       throw error
@@ -42,9 +42,9 @@ const deleteCard = (req, res) => {
     .then((card) =>
       res.status(200).send({ message: "Card has been deleted", data: card }))
       .catch((err) => {
-        if (err.name === "CastError") {
+        if (err.name === "CastError") { // if your id is not correct
           res.status(400).send("Invalid user");
-        } else if (err.type === 404) {
+        } else if (err.status === 404) {
           res.status(404).send({ message: err.message });
         } else {
           serverError(res);
