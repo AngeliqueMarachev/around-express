@@ -14,6 +14,7 @@ An introduction to REST API.
 - Built a RESTful API sever using MondgoDB and Mongoose.
 - Routing to send or recieve data.
 - Use of fs to read data.
+- Use of regex for validation
 
 * The npm run start command launches the server on localhost:3000.
 * The npm run dev command launches the server on localhost:3000 with hot reload enabled.

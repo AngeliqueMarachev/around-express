@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
-
-const { URL_REGEX } = require('../utils/constants');
+const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -20,11 +19,11 @@ const userSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(value) {
-        return URL_REGEX.test(value); // will return true or false
+        return validator.isUrl(value);
       },
       message: 'Invalid URL',
     },
   },
-})
+});
 
 module.exports = mongoose.model('user', userSchema);
