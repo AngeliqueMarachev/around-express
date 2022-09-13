@@ -13,7 +13,7 @@ const cardSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(value) {
-        return validator.isUrl(value);
+        return validator.isURL(value);
       },
       message: 'Invalid URL',
     },
@@ -24,7 +24,7 @@ const cardSchema = new mongoose.Schema({
     required: true,
   },
   likes: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: [mongoose.Schema.Types.ObjectId],
     ref: 'user',
     default: [],
   },

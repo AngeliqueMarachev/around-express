@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
     required: true,
     validate: {
       validator(value) {
-        return validator.isUrl(value);
+        return validator.isURL(value);
       },
       message: 'Invalid URL',
     },

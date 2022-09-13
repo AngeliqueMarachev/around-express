@@ -36,7 +36,7 @@ const deleteCard = (req, res) => {
 
   Card.findByIdAndRemove(cardId)
     .orFail(() => {
-      const error = new Error({ message: 'Card not found' });
+      const error = new Error('Card not found');
       error.status = PAGE_ERROR;
 
       throw error;
@@ -63,7 +63,7 @@ const updateLikes = (req, res, operator) => {
     { new: true },
   )
     .orFail(() => {
-      const error = new Error({ message: 'Card is not found' });
+      const error = new Error('Card is not found');
       error.status = PAGE_ERROR;
 
       throw error;

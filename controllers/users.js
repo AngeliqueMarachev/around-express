@@ -11,15 +11,15 @@ const getUser = (req, res) => {
   const { userId } = req.params;
   User.findById(userId)
     .orFail(() => {
-      const error = new Error({ message: 'User not found' });
+      const error = new Error('User not found');
       error.status = PAGE_ERROR;
       throw error;
     })
     .then((user) => res.status(200).send({ data: user }))
     .catch((err) => {
-      if (err.status === 'CastError') {
+      if (err.name === 'CastError') {
         res.status(INVALID_DATA ).send({ message: 'Invalid user' });
-      } else if (err.type === PAGE_ERROR) {
+      } else if (err.status === PAGE_ERROR) {
         res.status(PAGE_ERROR).send({ message: err.message });
       } else {
         SERVER_ERROR(res);
@@ -46,10 +46,11 @@ const createUser = (req, res) => {
 
 const updateUserData = (req, res) => {
   const id = req.user._id;
-  const { body } = req.body;
-  User.findByIdAndUpdate(id, { body }, { new: true }, { runValidators: true })
+  console.log(req.user)
+  const { body } = req;
+  User.findByIdAndUpdate(id, body, { new: true }, { runValidators: true })
     .orFail(() => {
-      const error = new Error({ message: 'User id not found' });
+      const error = new Error('User id not found');
       error.status = PAGE_ERROR;
 
       throw error;
@@ -59,7 +60,7 @@ const updateUserData = (req, res) => {
       if (err.name === 'CastError') {
         res.status(INVALID_DATA ).send({ message: 'User id is incorrect' });
       } else if (err.name === 'ValidationError') {
-        res.send(INVALID_DATA ).send({ message: 'Bad request' });
+        res.status(INVALID_DATA ).send({ message: 'Bad request' });
       } else if (err.status === PAGE_ERROR) {
         res.status(PAGE_ERROR).send({ message: err.message });
       } else {
