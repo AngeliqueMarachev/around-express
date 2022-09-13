@@ -1,8 +1,7 @@
 const SERVER_ERROR = (res) => res.status(500).send({ message: 'We have encountered an error' });
 
-const PAGE_ERROR = (res) => res.status(404).send({ message: 'Requested resource not found' });
-
-const INVALID_DATA = (res) => res.status(400).send({ message: 'Invalid data' });
+const PAGE_ERROR = 404;
+const INVALID_DATA = 400;
 
 module.exports = {
   SERVER_ERROR,

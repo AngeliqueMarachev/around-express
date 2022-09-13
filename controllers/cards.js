@@ -1,5 +1,5 @@
 const Card = require('../models/cards');
-const { SERVER_ERROR, INVALID_DATA, PAGE_ERROR } = require('../utils/constants');
+const { SERVER_ERROR, PAGE_ERROR, INVALID_DATA } = require('../utils/constants');
 
 // GET
 const getCards = (req, res) => {
@@ -37,7 +37,7 @@ const deleteCard = (req, res) => {
   Card.findByIdAndRemove(cardId)
     .orFail(() => {
       const error = new Error({ message: 'Card not found' });
-      error.status = 404;
+      error.status = PAGE_ERROR;
 
       throw error;
     })
@@ -45,7 +45,7 @@ const deleteCard = (req, res) => {
     .catch((err) => {
       if (err.name === 'CastError') {
         res.status(INVALID_DATA).send({ message: 'Invalid card ID' });
-      } else if (err.status === 404) {
+      } else if (err.status === PAGE_ERROR) {
         res.status(PAGE_ERROR).send({ message: err.message });
       } else {
         SERVER_ERROR(res);
@@ -64,15 +64,15 @@ const updateLikes = (req, res, operator) => {
   )
     .orFail(() => {
       const error = new Error({ message: 'Card is not found' });
-      error.status = 404;
+      error.status = PAGE_ERROR;
 
       throw error;
     })
     .then((card) => res.send({ data: card }))
     .catch((err) => {
       if (err.name === 'CastError') {
-        res.status(INVALID_DATA).send({ message: 'Card id is incorrect' });
-      } else if (err.status === 404) {
+        res.status(INVALID_DATA).send({ message: 'Card ID is incorrect' });
+      } else if (err.status === PAGE_ERROR) {
         res.status(PAGE_ERROR).send({ message: err.message });
       } else {
         SERVER_ERROR(res);
