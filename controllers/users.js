@@ -18,7 +18,7 @@ const getUser = (req, res) => {
     .then((user) => res.status(200).send({ data: user }))
     .catch((err) => {
       if (err.name === 'CastError') {
-        res.status(INVALID_DATA ).send({ message: 'Invalid user' });
+        res.status(INVALID_DATA).send({ message: 'Invalid user' });
       } else if (err.status === PAGE_ERROR) {
         res.status(PAGE_ERROR).send({ message: err.message });
       } else {
@@ -33,7 +33,7 @@ const createUser = (req, res) => {
     .then((user) => res.status(201).send({ data: user }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        res.status(INVALID_DATA ).send({
+        res.status(INVALID_DATA).send({
           message: `${Object.values(err.errors)
             .map((error) => error.message)
             .join(', ')}`,
@@ -46,8 +46,8 @@ const createUser = (req, res) => {
 
 const updateUserData = (req, res) => {
   const id = req.user._id;
-  console.log(req.user)
   const { body } = req;
+
   User.findByIdAndUpdate(id, body, { new: true }, { runValidators: true })
     .orFail(() => {
       const error = new Error('User id not found');
@@ -58,9 +58,9 @@ const updateUserData = (req, res) => {
     .then((user) => res.send({ data: user }))
     .catch((err) => {
       if (err.name === 'CastError') {
-        res.status(INVALID_DATA ).send({ message: 'User id is incorrect' });
+        res.status(INVALID_DATA).send({ message: 'User id is incorrect' });
       } else if (err.name === 'ValidationError') {
-        res.status(INVALID_DATA ).send({ message: 'Bad request' });
+        res.status(INVALID_DATA).send({ message: 'Bad request' });
       } else if (err.status === PAGE_ERROR) {
         res.status(PAGE_ERROR).send({ message: err.message });
       } else {
@@ -73,16 +73,16 @@ const updateUser = (req, res) => {
   const { name, about } = req.body;
 
   if (!name || !about) {
-    return res.status(INVALID_DATA ).send({ message: 'Please update these fields' });
+    return res.status(INVALID_DATA).send({ message: 'Please update these fields' });
   }
-  return updateUserData(res, req);
+  return updateUserData(req, res);
 };
 
 const updateAvatar = (req, res) => {
   const { avatar } = req.body;
 
   if (!avatar) {
-    return res.status(INVALID_DATA ).send({ message: 'Please update avatar' });
+    return res.status(INVALID_DATA).send({ message: 'Please update avatar' });
   }
   return updateUserData(req, res);
 };

@@ -27,7 +27,7 @@ app.use(userRouter);
 app.use(cardRouter);
 
 app.use((req, res) => {
-  PAGE_ERROR(res);
+  res.status(PAGE_ERROR).send({ message: 'Requested resource not found' });
 });
 
 app.listen(PORT, () => {
