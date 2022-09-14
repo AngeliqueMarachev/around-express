@@ -48,7 +48,7 @@ const updateUserData = (req, res) => {
   const id = req.user._id;
   const { body } = req;
 
-  User.findByIdAndUpdate(id, body, { new: true }, { runValidators: true })
+  User.findByIdAndUpdate(id, body, { new: true, runValidators: true })
     .orFail(() => {
       const error = new Error('User id not found');
       error.status = PAGE_ERROR;
